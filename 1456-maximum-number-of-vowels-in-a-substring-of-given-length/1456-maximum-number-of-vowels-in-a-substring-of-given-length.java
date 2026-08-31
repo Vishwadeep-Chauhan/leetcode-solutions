@@ -1,24 +1,12 @@
 class Solution {
-    static {
-        for (int i = 0; i < 500; i++) {
-            maxVowels("aeiou", 5);
-        }
-    }
-
-    public static int maxVowels(String s, int k) {
+    public int maxVowels(String s, int k) {
+        char[] chars = s.toCharArray();
         int max = 0;
         int temp = 0;
-        int len = s.length();
-
-        boolean[] isVowel = new boolean[128];
-        isVowel['a'] = true;
-        isVowel['e'] = true;
-        isVowel['i'] = true;
-        isVowel['o'] = true;
-        isVowel['u'] = true;
 
         for (int i = 0; i < k; i++) {
-            if (isVowel[s.charAt(i)]) {
+            char c = chars[i];
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
                 temp++;
             }
         }
@@ -28,11 +16,14 @@ class Solution {
             return max;
         }
 
-        for (int i = k; i < len; i++) {
-            if (isVowel[s.charAt(i)]) {
+        for (int i = k; i < chars.length; i++) {
+            char add = chars[i];
+            char remove = chars[i - k];
+
+            if (add == 'a' || add == 'e' || add == 'i' || add == 'o' || add == 'u') {
                 temp++;
             }
-            if (isVowel[s.charAt(i - k)]) {
+            if (remove == 'a' || remove == 'e' || remove == 'i' || remove == 'o' || remove == 'u') {
                 temp--;
             }
 
