@@ -1,34 +1,44 @@
 class Solution {
     public int maxVowels(String s, int k) {
-        int n = s.length();
-        int maxVowels = 0;
-        int currentVowels = 0;
-
+        byte[] bytes = s.getBytes();
+        int n = bytes.length;
+        
         boolean[] isVowel = new boolean[123];
         isVowel['a'] = true;
         isVowel['e'] = true;
         isVowel['i'] = true;
         isVowel['o'] = true;
         isVowel['u'] = true;
-
-        for (int i = 0; i < n; i++) {
-            
-            if (isVowel[s.charAt(i)]) {
+        
+        int currentVowels = 0;
+        
+        for (int i = 0; i < k; i++) {
+            if (isVowel[bytes[i]]) {
                 currentVowels++;
             }
-            
-            if (i >= k && isVowel[s.charAt(i - k)]) {
+        }
+        
+        int maxVowels = currentVowels;
+        if (maxVowels == k) {
+            return k;
+        }
+        
+        for (int i = k; i < n; i++) {
+            if (isVowel[bytes[i]]) {
+                currentVowels++;
+            }
+            if (isVowel[bytes[i - k]]) {
                 currentVowels--;
             }
+            
             if (currentVowels > maxVowels) {
                 maxVowels = currentVowels;
-            }
-
-            if (maxVowels == k) {
-                return k;
+                if (maxVowels == k) {
+                    return k;
+                }
             }
         }
-
+        
         return maxVowels;
     }
 }
