@@ -5,7 +5,7 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             int num = nums[i];
             int digits = 0;
-            for (; num > 0; num = num / 10) {
+            for (; num != 0; num = num / 10) {
                 digits++;
             }
 
