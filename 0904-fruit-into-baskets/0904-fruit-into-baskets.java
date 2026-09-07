@@ -1,27 +1,28 @@
+import java.util.HashMap;
+
 class Solution {
     public int totalFruit(int[] fruits) {
-      int [] frfr=new int[fruits.length];
-      int max=0;
-      int dis=0;
-      int l=0;
-      for(int r=0;r<fruits.length;r++){
-        if(frfr[fruits[r]]==0){
-            dis++;
-        }
-        frfr[fruits[r]]++;
-      
-while (dis > 2) {
-                frfr[fruits[l]]--;
-                if (frfr[fruits[l]] == 0) {
-                    dis--;
+        HashMap<Integer, Integer> fruitCounts = new HashMap<>();
+        int maxFruits = 0;
+        int left = 0;
+
+        for (int right = 0; right < fruits.length; right++) {
+            int currentFruit = fruits[right];
+            fruitCounts.put(currentFruit, fruitCounts.getOrDefault(currentFruit, 0) + 1);
+
+            while (fruitCounts.size() > 2) {
+                int leftFruit = fruits[left];
+                fruitCounts.put(leftFruit, fruitCounts.get(leftFruit) - 1);
+
+                if (fruitCounts.get(leftFruit) == 0) {
+                    fruitCounts.remove(leftFruit);
                 }
-                
-                l++;
+                left++;
             }
 
-            max = Math.max(max, r - l + 1);
-        
-      }
-        return max;
+            maxFruits = Math.max(maxFruits, right - left + 1);
+        }
+
+        return maxFruits;
     }
 }
