@@ -1,46 +1,23 @@
 class Solution {
-    static {
-        System.gc();
-        for (int i = 0; i < 500; i++) {
-            maxVowelsFast("aeiou", 5);
-        }
-    }
-
     public int maxVowels(String s, int k) {
-        return maxVowelsFast(s, k);
-    }
-
-    private static int maxVowelsFast(String s, int k) {
-        int len = s.length();
-        int max = 0;
-        int temp = 0;
-
-        for (int i = 0; i < k; i++) {
-            char c = s.charAt(i);
-            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
-                temp++;
-            }
+        int l=0;
+        int max=0;
+        int count=0;
+     for(int r=0;r<s.length();r++){
+        if(s.charAt(r)=='a'|| s.charAt(r)=='e'|| s.charAt(r)=='i'|| s.charAt(r)=='o'||s.charAt(r)=='u'){
+            count++;
         }
-        max = temp;
-        if (max == k) return k;
-
-        for (int i = k; i < len; i++) {
-            char add = s.charAt(i);
-            if (add == 'a' || add == 'e' || add == 'i' || add == 'o' || add == 'u') {
-                temp++;
-            }
-
-            char remove = s.charAt(i - k);
-            if (remove == 'a' || remove == 'e' || remove == 'i' || remove == 'o' || remove == 'u') {
-                temp--;
-            }
-
-            if (temp > max) {
-                max = temp;
-                if (max == k) return k; 
-            }
+            if(r-l+1==k){
+                max=Math.max(max,count);
+                if(s.charAt(l)=='a'|| s.charAt(l)=='e'|| s.charAt(l)=='i'|| s.charAt(l)=='o'||s.charAt(l)=='u'){
+                count--;
+                }
+                l++;
+            
+        
         }
-
+     }
         return max;
+     
     }
 }
